@@ -8,15 +8,15 @@ def firstGuess() -> str:
 def getColors() -> str | None :
     colors = input("Input colors: ")
     
-    if colors == "" or colors == "exit":
+    if colors == "" or colors == "exit" or colors == "done":
         exit(0)
-    if len(colors) != 5:
-        print(f"ERROR: Invalid number of colors. Expected 5, but got {len(colors)}!")
-        return None
     for color in colors:
         if not color in ['b', 'y', 'g']:
             print(f"ERROR: Invalid color. Color should be 'b' or 'y' or 'g', But got {color}")
             return None
+    if len(colors) != 5:
+        print(f"ERROR: Invalid number of colors. Expected 5, but got {len(colors)}!")
+        return None
     return colors
 
 def filterWords(words: list, word: str, colors: str) -> list:
@@ -97,7 +97,9 @@ def main(debug: bool):
 
     showGuess(guess, guess_count)
 
-    while guess_count <= 5:
+    while guess_count <= 6:
+        guess_count += 1
+
         colors = getColors()
         if colors == None:
             continue
@@ -108,7 +110,6 @@ def main(debug: bool):
             print(words)
         guess = nextGuess(words)
         showGuess(guess, guess_count)
-        guess_count += 1
 
 try:
     debug = False
