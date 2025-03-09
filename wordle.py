@@ -83,7 +83,7 @@ def nextGuess(words: list) -> str:
     return res
 
 
-def main():
+def main(debug: bool):
     guess_count = 1
     guess = ""
 
@@ -103,12 +103,15 @@ def main():
             continue
 
         words  = filterWords(words, guess, colors)
-        print(words)
+        if debug:
+            print("words: ", end="")
+            print(words)
         guess = nextGuess(words)
         showGuess(guess, guess_count)
         guess_count += 1
 
 try:
-    main()
+    debug = False
+    main(debug)
 except KeyboardInterrupt:
     print("\nProgram interrupted by the user.")
